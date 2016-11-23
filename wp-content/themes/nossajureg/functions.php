@@ -17,4 +17,7 @@ function custom_setup()
 
     // Menu
     register_nav_menu('menu-header', 'Menu do cabeçalho');
+
+    // Thumbnails
+    add_theme_support('post-thumbnails');
 }

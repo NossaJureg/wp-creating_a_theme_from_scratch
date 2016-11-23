@@ -1,77 +1,40 @@
 <?php get_header(); ?>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
 
-<!-- Page Content -->
-<div class="container">
-
-    <div class="row">
-
-        <!-- Blog Entries Column -->
-        <div class="col-md-8">
-
-            <h1 class="page-header">
-                Page Heading
-                <small>Secondary Text</small>
-            </h1>
-
-            <!-- First Blog Post -->
-            <h2>
-                <a href="#">Blog Post Title</a>
-            </h2>
-            <p class="lead">
-                by <a href="index.php">Start Bootstrap</a>
-            </p>
-            <p><span class="glyphicon glyphicon-time"></span> Posted on August 28, 2013 at 10:00 PM</p>
-            <hr>
-            <img class="img-responsive" src="http://placehold.it/900x300" alt="">
-            <hr>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis ipsum officiis rerum.</p>
-            <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
-
-            <hr>
-
-            <!-- Second Blog Post -->
-            <h2>
-                <a href="#">Blog Post Title</a>
-            </h2>
-            <p class="lead">
-                by <a href="index.php">Start Bootstrap</a>
-            </p>
-            <p><span class="glyphicon glyphicon-time"></span> Posted on August 28, 2013 at 10:45 PM</p>
-            <hr>
-            <img class="img-responsive" src="http://placehold.it/900x300" alt="">
-            <hr>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam, quasi, fugiat, asperiores harum voluptatum tenetur a possimus nesciunt quod accusamus saepe tempora ipsam distinctio minima dolorum perferendis labore impedit voluptates!</p>
-            <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
-
-            <hr>
-
-            <!-- Third Blog Post -->
-            <h2>
-                <a href="#">Blog Post Title</a>
-            </h2>
-            <p class="lead">
-                by <a href="index.php">Start Bootstrap</a>
-            </p>
-            <p><span class="glyphicon glyphicon-time"></span> Posted on August 28, 2013 at 10:45 PM</p>
-            <hr>
-            <img class="img-responsive" src="http://placehold.it/900x300" alt="">
-            <hr>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, voluptates, voluptas dolore ipsam cumque quam veniam accusantium laudantium adipisci architecto itaque dicta aperiam maiores provident id incidunt autem. Magni, ratione.</p>
-            <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
-
-            <hr>
-
-            <!-- Pager -->
-            <ul class="pager">
-                <li class="previous">
-                    <a href="#">&larr; Older</a>
-                </li>
-                <li class="next">
-                    <a href="#">Newer &rarr;</a>
-                </li>
-            </ul>
-
-        </div>
+                <?php while(have_posts()) : the_post(); ?>
+                    <?php
+                    $title = get_the_title();
+                    $permalink = get_the_permalink();
+                    $author_name = get_the_author();
+                    $author_link = get_the_author_link();
+                    $description = get_the_excerpt();
+                    $published = get_the_date();
+                    $thumbnail = get_the_post_thumbnail(null, null, ['class' => 'img-responsive']);
+                    ?>
+                    <h2> <a href="<?php echo $permalink; ?>"><?php echo $title; ?></a> </h2>
+                    <p class="lead"> by <a href="<?php echo $author_link; ?>"><?php echo $author_name; ?></a> </p>
+                    <p><span class="glyphicon glyphicon-time"></span> Posted on <?php echo $published; ?></p>
+                    <?php if ($thumbnail) : ?>
+                        <hr>
+                        <?php echo $thumbnail; ?>
+                    <?php endif; ?>
+                    <hr>
+                    <p><?php echo $description; ?></p>
+                    <a class="btn btn-primary" href="<?php echo $permalink; ?>">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+                    <hr>
+                <?php endwhile; ?>
+                
+                <ul class="pager">
+                    <?php if (get_previous_posts_link()) : ?>
+                        <li class="previous"><?php previous_posts_link("&larr; Older"); ?></li>
+                    <?php endif; ?>
+                    <?php if (get_next_posts_link()) : ?>
+                        <li class="next"><?php next_posts_link("Newer &rarr;"); ?></li>
+                    <?php endif; ?>
+                </ul>
+            </div>
 
         <!-- Blog Sidebar Widgets Column -->
         <div class="col-md-4">
