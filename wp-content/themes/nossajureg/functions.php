@@ -14,4 +14,7 @@ function custom_setup()
 {
     // Remove admin bar
     add_filter('show_admin_bar', '__return_false');
+
+    // Menu
+    register_nav_menu('menu-header', 'Menu do cabeçalho');
 }
